@@ -7,6 +7,9 @@ SRC=http://ftp.jaist.ac.jp/pub/raspberrypi/raspbian_lite/images/raspbian_lite-20
 
 set -e
 
+apt-get -y update
+apt-get -y install binfmt-support qemu qemu-user-static wget unzip
+
 update-binfmts --enable qemu-arm
 update-binfmts --display | grep arm
 
@@ -24,12 +27,12 @@ mv root/etc/ld.so.preload root/etc/ld.so.preload.bak
 
 # Copy qemu-arm-static in the image be able to interpret arm elf on x86
 /usr/bin/qemu-arm-static -version
-cp /usr/bin/qemu-arm-static root/usr/bin
+#cp /usr/bin/qemu-arm-static root/usr/bin
 
 # Archive Raspbian root
 echo Archiving Raspbian root...
 cd root
-tar cf /opt/tmp/$DISK_IMG.tar .
+tar cf ../../$DISK_IMG.tar .
 cd ..
 
 # Clean-up
