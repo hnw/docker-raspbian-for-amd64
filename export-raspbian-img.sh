@@ -23,8 +23,7 @@ mount -o loop,offset=$(($OFFSET*512)) $DISK_IMG.img root
 mv root/etc/ld.so.preload root/etc/ld.so.preload.bak
 
 # Copy qemu-arm-static in the image be able to interpret arm elf on x86
-/usr/bin/qemu-arm-static -version
-#cp /usr/bin/qemu-arm-static root/usr/bin
+cp /usr/bin/qemu-arm-static root/usr/bin
 
 # Archive Raspbian root
 echo Archiving Raspbian root...
