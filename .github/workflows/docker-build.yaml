@@ -9,37 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: apt-get
-      run: sudo apt-get -y update && sudo apt-get -y install binfmt-support qemu qemu-user-static
-    - name: enable qemu-arm
-      run: sudo update-binfmts --enable qemu-arm
-    - name: build multi-architecture binary
-      run: go/buildall.sh
-    - name: show docker version
-      run: docker --version
-    - name: run arm binary on host
-      run: /usr/bin/qemu-arm-static go/hello.arm
-    - name: run arm binary on host
-      run: go/hello.arm
-    - name: run binary on docker
-      run: docker run -v $(pwd):/opt -w /opt debian:stretch ./go/hello.arm
-      continue-on-error: true
-    - name: run binary on docker
-      run: docker run -v $(pwd):/opt -w /opt debian:stretch ./go/hello.arm64
-      continue-on-error: true
-    - name: run binary on docker
-      run: docker run -v $(pwd):/opt -w /opt debian:stretch ./go/hello.mips
-      continue-on-error: true
-    - name: run binary on docker
-      run: docker run -v $(pwd):/opt -w /opt debian:stretch ./go/hello.mipsle
-      continue-on-error: true
-    - name: run binary on docker
-      run: docker run -v $(pwd):/opt -w /opt debian:stretch ./go/hello.ppc64le
-      continue-on-error: true
-    - name: run binary on docker
-      run: docker run -v $(pwd):/opt -w /opt debian:stretch ./go/hello.ppc64
-      continue-on-error: true
-#    - name: export-raspbian-img
-#      run: sudo ./export-raspbian-img.sh
-#    - name: import-raspbian-img
-#      run: ./import-raspbian-img.sh
+    - name: export-raspbian-img
+      run: sudo ./export-raspbian-img.sh
+    - name: import-raspbian-img
+      run: ./import-raspbian-img.sh

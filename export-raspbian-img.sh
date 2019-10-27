@@ -8,10 +8,7 @@ SRC=http://ftp.jaist.ac.jp/pub/raspberrypi/raspbian_lite/images/raspbian_lite-20
 set -e
 
 apt-get -y update
-apt-get -y install binfmt-support qemu qemu-user-static wget unzip
-
-update-binfmts --enable qemu-arm
-update-binfmts --display | grep arm
+apt-get -y install qemu qemu-user-static wget unzip
 
 mkdir -p raspbian-tmp
 cd raspbian-tmp

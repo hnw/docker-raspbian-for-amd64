@@ -12,4 +12,3 @@ docker import $DISK_IMG.tar $DOCKER_REPO:$DOCKER_TAG
 echo Test the image with:
 echo docker run --rm $DOCKER_REPO:$DOCKER_TAG /bin/bash -c 'uname -a'
 docker run --rm $DOCKER_REPO:$DOCKER_TAG /bin/bash -c 'uname -a'
-docker run --rm $DOCKER_REPO:$DOCKER_TAG /bin/bash -c 'ps auxwwg'
