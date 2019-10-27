@@ -2,16 +2,26 @@ name: CI
 
 on: [push]
 
+
+
 jobs:
   build:
+    env:
+      DOCKERHUB_USER: yhnw
+      DOCKERHUB_REPO: raspbian-for-x86_64
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Prepare required packages
+      run: sudo ./prepare-required-pkgs-on-debian.sh
+    - name: Export Raspbian image
+      run: sudo ./export-raspbian-img.sh
+    - name: Build Docker image
+      run: ./build-docker-img.sh
+    - name: Upload Docker image to DockerHub
+      if: contains(github.ref, 'master')
+      run: ./upload-to-dockerhub.sh
+      env:
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
